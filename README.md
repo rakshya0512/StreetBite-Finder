@@ -1,3 +1,5 @@
+StreetBite-Finder
+
 📌 Project Overview
 StreetBite Finder is a lightweight, responsive web-based platform that helps small food business vendors to digitize their offerings. It allows vendors to register, login, add new food items, view added items, track raw materials, and monitor sales. The UI follows a clean and pastel theme using #ffc7b5.
 
