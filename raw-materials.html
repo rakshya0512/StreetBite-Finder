@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0065)file:///C:/Users/Varsha/Desktop/cart%20page%20in%20hackathon.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raw Material Marketplace</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-size: cover;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .controls input[type="text"] {
+      padding: 8px;
+      font-size: 1em;
+      width: 200px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      padding: 15px;
+      width: 250px;
+      box-sizing: border-box;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .card p {
+      margin: 6px 0;
+      color: #333;
+    }
+
+    .offer {
+      color: red;
+      font-weight: bold;
+    }
+
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .remove-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .cart-summary {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    #totalAmount {
+      font-size: 1.3em;
+      color: black;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Raw Material Marketplace</h1>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search item...">
+    <label><input type="checkbox" id="verifiedFilter"> Verified Suppliers Only</label>
+    <label><input type="checkbox" id="bulkToggle"> Join Bulk Order (10% OFF)</label>
+  </div>
+
+  <h2 style="text-align:center; color:#fff;">Available Materials</h2>
+  <div class="container" id="productList"><div class="card">
+          <h3>Wheat Flour</h3>
+          <p>Price: ₹500</p>
+          <p>Supplier: Anand Traders</p>
+          <p>Delivery: 2 days</p>
+          <p>Rating: ⭐ 4.5</p>
+          <button class="add-btn" onclick="addToCart(1)">Add to Cart</button>
+        </div><div class="card">
+          <h3>Oil Can</h3>
+          <p>Price: ₹1200</p>
+          <p>Supplier: Vimal Oils</p>
+          <p>Delivery: 1 day</p>
+          <p>Rating: ⭐ 4.8</p>
+          <button class="add-btn" onclick="addToCart(3)">Add to Cart</button>
+        </div><div class="card">
+          <h3>Sugar</h3>
+          <p>Price: ₹400</p>
+          <p>Supplier: SweetMart</p>
+          <p>Delivery: 2 days</p>
+          <p>Rating: ⭐ 4.3</p>
+          <button class="add-btn" onclick="addToCart(4)">Add to Cart</button>
+        </div><div class="card">
+          <h3>Salt</h3>
+          <p>Price: ₹150</p>
+          <p>Supplier: FreshSalt Co</p>
+          <p>Delivery: 2 days</p>
+          <p>Rating: ⭐ 4.4</p>
+          <button class="add-btn" onclick="addToCart(6)">Add to Cart</button>
+        </div><div class="card">
+          <h3>Turmeric</h3>
+          <p>Price: ₹350</p>
+          <p>Supplier: Natural Spices</p>
+          <p>Delivery: 1 day</p>
+          <p>Rating: ⭐ 4.6</p>
+          <button class="add-btn" onclick="addToCart(7)">Add to Cart</button>
+        </div><div class="card">
+          <h3>Ghee</h3>
+          <p>Price: ₹900</p>
+          <p>Supplier: FarmPure</p>
+          <p>Delivery: 2 days</p>
+          <p>Rating: ⭐ 4.9</p>
+          <button class="add-btn" onclick="addToCart(9)">Add to Cart</button>
+        </div><div class="card">
+          <h3>Tea Powder</h3>
+          <p>Price: ₹250</p>
+          <p>Supplier: FreshBrew</p>
+          <p>Delivery: 2 days</p>
+          <p>Rating: ⭐ 4.4</p>
+          <button class="add-btn" onclick="addToCart(10)">Add to Cart</button>
+        </div></div>
+
+  <h2 style="text-align:center; color:#fff;">Your Cart</h2>
+  <div class="container" id="cartList"><div class="card">
+          <h3>Cooking Oil</h3>
+          <p>Price: ₹1100.00</p>
+          <p>Quantity: 
+            <button onclick="changeQty(8, -1)">-</button>
+            1
+            <button onclick="changeQty(8, 1)">+</button>
+          </p>
+          <button class="remove-btn" onclick="changeQty(8, -1)">Remove One</button>
+        </div></div>
+
+  <div class="cart-summary" id="cartSummary">Total: ₹1100.00 for 1 item(s).</div>
+  <div id="totalAmount">Grand Total Amount: ₹1100.00</div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Wheat Flour", price: 500, supplier: "Anand Traders", delivery: "2 days", rating: 4.5, verified: true },
+      { id: 2, name: "Rice", price: 600, supplier: "Krishna Stores", delivery: "3 days", rating: 4.2, verified: false },
+      { id: 3, name: "Oil Can", price: 1200, supplier: "Vimal Oils", delivery: "1 day", rating: 4.8, verified: true },
+      { id: 4, name: "Sugar", price: 400, supplier: "SweetMart", delivery: "2 days", rating: 4.3, verified: true },
+      { id: 5, name: "Chilli Powder", price: 300, supplier: "Spice World", delivery: "3 days", rating: 4.1, verified: false },
+      { id: 6, name: "Salt", price: 150, supplier: "FreshSalt Co", delivery: "2 days", rating: 4.4, verified: true },
+      { id: 7, name: "Turmeric", price: 350, supplier: "Natural Spices", delivery: "1 day", rating: 4.6, verified: true },
+      { id: 8, name: "Cooking Oil", price: 1100, supplier: "SunDrop", delivery: "2 days", rating: 4.7, verified: false },
+      { id: 9, name: "Ghee", price: 900, supplier: "FarmPure", delivery: "2 days", rating: 4.9, verified: true },
+      { id: 10, name: "Tea Powder", price: 250, supplier: "FreshBrew", delivery: "2 days", rating: 4.4, verified: true }
+    ];
+
+    let cart = [];
+
+    const productList = document.getElementById("productList");
+    const cartList = document.getElementById("cartList");
+    const searchInput = document.getElementById("searchInput");
+    const verifiedFilter = document.getElementById("verifiedFilter");
+    const bulkToggle = document.getElementById("bulkToggle");
+    const cartSummary = document.getElementById("cartSummary");
+    const totalAmount = document.getElementById("totalAmount");
+
+    function renderProducts() {
+      const keyword = searchInput.value.toLowerCase();
+      const showVerified = verifiedFilter.checked;
+
+      productList.innerHTML = "";
+
+      const filtered = products.filter(p =>
+        (!showVerified || p.verified) &&
+        p.name.toLowerCase().includes(keyword)
+      );
+
+      if (filtered.length === 0) {
+        productList.innerHTML = "<p>No items found.</p>";
+        return;
+      }
+
+      filtered.forEach(prod => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${prod.name}</h3>
+          <p>Price: ₹${prod.price}</p>
+          <p>Supplier: ${prod.supplier}</p>
+          <p>Delivery: ${prod.delivery}</p>
+          <p>Rating: ⭐ ${prod.rating}</p>
+          <button class="add-btn" onclick="addToCart(${prod.id})">Add to Cart</button>
+        `;
+        productList.appendChild(card);
+      });
+    }
+
+    function renderCart() {
+      cartList.innerHTML = "";
+      if (cart.length === 0) {
+        cartSummary.textContent = "Your cart is empty.";
+        totalAmount.textContent = "";
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach(item => {
+        let itemPrice = item.price;
+        total += itemPrice * item.qty;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>Price: ₹${itemPrice.toFixed(2)}</p>
+          <p>Quantity: 
+            <button onclick="changeQty(${item.id}, -1)">-</button>
+            ${item.qty}
+            <button onclick="changeQty(${item.id}, 1)">+</button>
+          </p>
+          <button class="remove-btn" onclick="changeQty(${item.id}, -1)">Remove One</button>
+        `;
+        cartList.appendChild(card);
+      });
+
+      if (bulkToggle.checked) {
+        total *= 0.9;
+      }
+
+      cartSummary.textContent = `Total: ₹${total.toFixed(2)} for ${cart.reduce((sum, i) => sum + i.qty, 0)} item(s).`;
+      totalAmount.textContent = `Grand Total Amount: ₹${total.toFixed(2)}`;
+    }
+
+    function addToCart(id) {
+      const existing = cart.find(i => i.id === id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        const product = products.find(p => p.id === id);
+        cart.push({ ...product, qty: 1 });
+      }
+      renderCart();
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(i => i.id !== id);
+        }
+        renderCart();
+      }
+    }
+
+    searchInput.addEventListener("input", renderProducts);
+    verifiedFilter.addEventListener("change", renderProducts);
+    bulkToggle.addEventListener("change", renderCart);
+
+    renderProducts();
+    renderCart();
+  </script>
+
+
+
+</body></html>

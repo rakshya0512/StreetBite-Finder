@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Food Item</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613455/favicon-96x96_qub9qh.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613465/favicon_ybxn1o.ico" />
+  <link rel="shortcut icon" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613465/favicon_ybxn1o.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613464/apple-touch-icon_jzdhb0.png" />
+  <link rel="manifest" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613456/web-app-manifest-512x512_qbtq6c.png" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffaf7;
+    }
+
+    header {
+      background-color: #ffc7b5;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      font-size: 32px;
+      color: #4b2c20;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .preview {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #ffc7b5;
+      color: black;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background-color: #ffb298;
+    }
+
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 12px;
+      text-align: center;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    footer {
+      background-color: #ffc7b5;
+      padding: 10px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🍔 Add New Food Item
+  </header>
+
+  <div class="container">
+    <h2>Upload your new dishes, prices, and photos</h2>
+    <form id="foodForm">
+      <label for="name">Dish Name</label>
+      <input type="text" id="name" required>
+
+      <label for="price">Price (₹)</label>
+      <input type="number" id="price" required>
+
+      <label for="category">Category</label>
+      <select id="category" required>
+        <option value="">--Select--</option>
+        <option value="Snacks">Snacks</option>
+        <option value="Meals">Meals</option>
+        <option value="Desserts">Desserts</option>
+      </select>
+
+      <label for="image">Dish Image</label>
+      <input type="file" id="image" accept="image/*" required>
+
+      <div class="preview" id="preview"></div>
+
+      <button type="submit">Submit</button>
+      <button type="button" onclick="window.location.href='browse.html'">View Items</button>
+
+      <div class="success" id="successMsg">✅ Food item added successfully!</div>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 StreetBite Finder | All rights reserved.
+  </footer>
+
+  <script>
+    const form = document.getElementById('foodForm');
+    const imageInput = document.getElementById('image');
+    const preview = document.getElementById('preview');
+    const successMsg = document.getElementById('successMsg');
+
+    imageInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.innerHTML = `<img src="${e.target.result}" alt="Dish Preview">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const foodItem = {
+        name: document.getElementById('name').value,
+        price: document.getElementById('price').value,
+        category: document.getElementById('category').value,
+        image: preview.querySelector('img')?.src || ''
+      };
+
+      const existing = JSON.parse(localStorage.getItem('foodItems')) || [];
+      existing.push(foodItem);
+      localStorage.setItem('foodItems', JSON.stringify(existing));
+
+      form.reset();
+      preview.innerHTML = "";
+      successMsg.style.display = 'block';
+      setTimeout(() => successMsg.style.display = 'none', 2500);
+    });
+  </script>
+</body>
+</html>

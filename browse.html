@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreetBite | All Food Items</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613455/favicon-96x96_qub9qh.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613465/favicon_ybxn1o.ico" />
+<link rel="shortcut icon" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613465/favicon_ybxn1o.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613464/apple-touch-icon_jzdhb0.png" />
+<link rel="manifest" href="https://res.cloudinary.com/dv3qjsfnt/image/upload/v1753613456/web-app-manifest-512x512_qbtq6c.png" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fff9f5;
+    }
+
+    header {
+      background-color: #ffc7b5;
+      text-align: center;
+      padding: 15px 0;
+      color: #4b2c20;
+      font-family: 'Pacifico', cursive;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      background-color: #ffd8c1;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+      color: #6a4c3c;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      width: 260px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      margin: 4px 0;
+      color: #333;
+    }
+
+    .no-items {
+      text-align: center;
+      font-size: 1.2em;
+      color: #777;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📋 All Food Items</h1>
+  </header>
+
+  <div class="container" id="foodContainer">
+    <!-- Food cards will be appended here -->
+  </div>
+
+  <p class="no-items" id="noItems">No food items added yet.</p>
+
+  <footer class="footer">
+    &copy; 2025 StreetBite Finder | All rights reserved.
+  </footer>
+
+  <script>
+  const foodContainer = document.getElementById('foodContainer');
+  const noItems = document.getElementById('noItems');
+
+  const foodItems = JSON.parse(localStorage.getItem('foodItems')) || [];
+
+  if (foodItems.length === 0) {
+    noItems.style.display = 'block';
+  } else {
+    noItems.style.display = 'none';
+    foodItems.forEach(item => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <h3>${item.name}</h3>
+        <p>Price: ₹${item.price}</p>
+      `;
+      foodContainer.appendChild(card);
+    });
+  }
+</script>
+
+</body>
+</html>
