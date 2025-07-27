@@ -22,7 +22,7 @@ The aim of the StreetBite Finder project is to create a user-friendly web applic
 1. add-food.html – Page for adding new dishes with image and price.
 2. browse.html – Displays all food items added by the vendor.
 3. dashboard.html – Main page with links to key sections.
-4. login.html – Vendor login page.
+4. index.html – Vendor login page.
 5. raw-materials.html – Manages raw materials stock and their price.
 6. register.html – Vendor registration page.
 7. script.js – Contains logic for login.html.
@@ -50,7 +50,7 @@ The aim of the StreetBite Finder project is to create a user-friendly web applic
 🔄 Usage Flow
 
 1.	User registers on register.html
-2.	Logs in using login.html
+2.	Logs in using index.html
 3.	Navigates dashboard.html
 4.	Adds food using add-food.html
 5.	Views added items on browse.html
